@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        /* Add this code to make text color white */
+        body, h1, h2, h3, p, ul, li, label {
+            color: rgb(20, 17, 17);
+            
+        }
+
+        input[type=submit]:hover {
+            background-color: rgba(82, 71, 239, 0.262);
+        }
+        #navlist {
+            background-color: #0b2edc00;
+            position: absolute;
+            width: 100%;
+            margin-top: -20px;
+            font-size: 35px;
+        }
+        /* styling navlist anchor element */
+        #navlist a {
+            float:left;
+            display:block;
+            color: #1d0a97e0;
+            text-align: center;
+            padding: 12px;
+            text-decoration:none;
+            font-size: 30px;
+        }
+        .navlist-right{
+            float:right;
+        }
+        #navlist a:hover {
+            background-color: rgba(82, 71, 239, 0.262);
+            color: black;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:url(main.jpg)center fixed;
+    background-size: cover;
+            margin:0px;
+            padding:0px;
+            height:100%;
+            width:100%;
+        }
+
+        html{
+            box-sizing: border-box;
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style inputs */
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type=submit] {
+            background-color: rgba(82, 71, 239, 0.262);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        /* Style the container/contact section */
+        .container {
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        /* Create two columns that float next to eachother */
+        .column {
+            float: right;
+            width: 50%;
+            margin-top: 6px;
+            padding: 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .column, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        .container { 
+            height: 200px;
+            position: relative;
+        }
+
+        .butto {
+            border: none;
+            color: rgb(8, 4, 4);
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 35px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button1:hover {
+            background-color: #324d90;
+          }
+        .button2:hover {
+            background-color: #324d90;
+        }
+        .button3:hover {
+            background-color: #324d90;
+        }  
+        .button4:hover {
+            background-color: #324d90;
+        }
+        .button1 {background-color:rgba(126, 119, 227, 0.362);
+                  backdrop-filter: blur(10px);
+                  border-radius: 20px;} 
+        .button2 {
+                  margin-left: 100px;
+                  background-color:rgba(126, 119, 227, 0.362);
+                  backdrop-filter: blur(10px);
+                  border-radius: 20px;}
+        .button3 {background-color:rgba(126, 119, 227, 0.362);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;}
+        .button4 {
+                    margin-left: 160px;
+                    background-color:rgba(126, 119, 227, 0.362);
+                    backdrop-filter: blur(10px);
+                    border-radius: 20px;}
+        .content{
+            text-align: center;
+        }
+        /* Style for the section container */
+        .about-us-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: transparent;
+        }
+
+        /* Style for the left side (image) */
+        .about-us-image {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Style for the right side (content) */
+        .about-us-content {
+            flex: 2;
+            padding: 20px;
+            background-color: rgba(239, 239, 245, 0);
+            align-items: center;
+            padding-left: 300px;
+            padding-right: 300px;
+            text-align: justify;
+            font-size: 35PX;
+        }
+
+        /* Additional style for the "Know Us More" section */
+        .know-us-more-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Style for the left side (image) in "Know Us More" */
+        .know-us-more-image {
+            flex: 1;
+            padding: 20px;
+            padding-left: 200px;
+        }
+
+        /* Style for the right side (content) in "Know Us More" */
+        .know-us-more-content {
+            flex: 2;
+            padding: 20px;
+            background-color:rgba(82, 71, 239, 0.262);
+        }
+        h1,h2{
+            text-align: center;
+            font-size: 40px;
+        }
+        .cont{
+            padding-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div id="navlist" >
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+        <i class="fa-solid fa-user fa-2xl"></i><a href="login.html">Sign up/Sign in</a>
+    </div>
+    <br>
+    <br>
+            <div class="content">
+        <h1>
+            Stock Information Hub
+        </h1>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="butto">
+                <a href="company_details.html">
+                    <button class="butto button1">Company details</button>
+                </a>
+                <a href="daily_data.html">
+                    <button class="butto button2">daily_data</button>
+                </a>
+                <br>
+                <br>
+                <div class="cont"><a href="investor_details.html">
+                    <button class="butto button3">Investor</button>
+                </a>
+                <a href="name_symbol.html">
+                    <button class="butto button4">Symbol</button>
+                </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="about-us-section">
+        <!-- Left side (image) for "About Us" -->
+        <!--<div class="about-us-image">
+            <img src="about.jpg" alt="About Us Image" width="100%">
+        </div>-->
+        <!-- Right side (content) for "About Us" -->
+        <div class="about-us-content">
+            <h2>About Us</h2>
+            <p>Introducing an automated stock market system providing quick access to detailed company information via name or stock symbol inputs. Using extensive databases and real-time data feeds, the system generates comprehensive overviews, including core business activities, financial metrics, income/expenditure breakdowns, comparative ratios, investor details, and interactive visualizations. This innovative solution empowers investors to make informed decisions and capitalize on opportunities effectively.</p>
+        </div>
+    </div>

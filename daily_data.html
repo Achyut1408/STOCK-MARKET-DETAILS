@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Symbol Search</title>
+    <style>
+        
+        #content{
+            display: flex;
+              align-items: center;
+              font-size: 36px;
+          }
+          #navlist {
+            background-color: #0b2edc00;
+            position: absolute;
+            width: 100%;
+            margin-top: -20px;
+        }
+        #navlist :hover{
+            background-color: #252f6a;
+        }
+        /* styling navlist anchor element */
+        #navlist a {
+            float:left;
+            display:block;
+            color: #000000e0;
+            text-align: center;
+            padding: 12px;
+            text-decoration:none;
+            font-size: 30px;
+        }
+        .navlist-right{
+            float:right;
+        }
+        #navlist a:hover {
+            background-color: rgba(34, 24, 173, 0.638);
+            color: black;
+        }
+        
+          #search-container {
+              
+              display: flex;
+              align-items: center;
+              justify-content: flex-end; /* Align to the right */
+              flex-grow: 1; /* Allow it to grow and take remaining space */
+          }
+        
+          #education-browser {
+              margin-right: 10px;
+          }
+        
+          #option-buttons {
+              display: flex;
+              align-items: center;
+          }
+        
+          #option-buttons button {
+              padding: 5px 10px;
+              font-size: 16px;
+              cursor: pointer;
+              margin-right: 10px;
+              border-radius: 20px;
+              background-color: white;
+            border: 2px solid black;
+            color: black;
+          }
+        
+          #submit-button {
+              padding: 5px 10px;
+              font-size: 30px;
+              cursor: pointer;
+              border-radius: 20px;
+          }
+          #option-buttons button:hover {
+            background-color: blue;
+            color: white;
+          }
+          button {
+            padding: 10px 20px;
+            background-color: #173a9a60;
+            color: #030000;
+            border: none;
+            border-radius: 13px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 25px;
+        }
+
+        button:hover {
+            background-color: #252f6a;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 25px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #141676;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #474add;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+        }
+        .ab{
+            font-size: 25px;
+        }
+        .a{
+            padding-left: 780px;
+        }
+</style>
+</head>
+<body>
+        <header>
+            <div id="navlist">
+                <a href="index.html">Home</a>
+                <a href="about_us.html">About Us</a>
+                    <i class="fa-solid fa-user fa-2xl"></i><a href="login.html">Sign up/Sign in</a>
+                <!-- search bar right align -->
+                
+                </div>
+            <div class="content">
+                <form onsubmit="checkFormData()">
+                    <div id="search-container">
+                        <div id="budget-buttons" >
+                            <button type="button" class="option-button" data-budget="company_details" onclick="getBudgetData(this); changeColor(this);">Company Details</button>
+                            <button type="button" class="option-button" data-budget="daily_data" onclick="getBudgetData(this); changeColor(this);">Daily_Data</button>
+                            <button type="button" class="option-button" data-budget="investor" onclick="getBudgetData(this); changeColor(this);">Investor Details</button>
+                            <button type="button" class="option-button" data-budget="symbol converter" onclick="getBudgetData(this); changeColor(this);">Symbol Converter</button>
+                        </div>
+                        <button type="submit" id="submit-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </header>
+        <div class="container">
+            <h1>Stock Data Info</h1>
+            <div class="ab"><label for="company-input">Enter company name:</label>
+            <input type="text" id="companyInput" placeholder="e.g.Apple Inc. or Microsoft">
+            <button onclick="fetchStockData()">Get Stock Data</button>
+            <div id="stockTable"></div></div>
+        </div>
+        <div class="a"><img src="graph.jpg"></div>
+        <script>
+            function fetchStockData() {
+                const companyInput = document.getElementById('companyInput').value;
+                const apiToken = "pk_d3a512f40688490482f45fb2cc259b0e";
+                const apiUrl = `https://cloud.iexapis.com/stable/search/${companyInput}?token=${apiToken}`;
+                
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const symbol = data[0].symbol;
+                        const alphaApiKey = "GGR5N0J7NQZVWOJK";
+                        const alphaApiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${alphaApiKey}`;
+                        
+                        return fetch(alphaApiUrl);
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const stockTable = document.getElementById('stockTable');
+                        const symbol = data["Global Quote"]["01. symbol"];
+                        const open = data["Global Quote"]["02. open"];
+                        const high = data["Global Quote"]["03. high"];
+                        const low = data["Global Quote"]["04. low"];
+                        const price = data["Global Quote"]["05. price"];
+                        const volume = data["Global Quote"]["06. volume"];
+                        const timestamp = data["Global Quote"]["07. latest trading day"];
+                        
+                        const tableHtml = `
+                            <table>
+                                <tr>
+                                    <th>Data Type</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Symbol</td>
+                                    <td>${symbol}</td>
+                                </tr>
+                                <tr>
+                                    <td>Open</td>
+                                    <td>${open}</td>
+                                </tr>
+                                <tr>
+                                    <td>High</td>
+                                    <td>${high}</td>
+                                </tr>
+                                <tr>
+                                    <td>Low</td>
+                                    <td>${low}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>${price}</td>
+                                </tr>
+                                <tr>
+                                    <td>Volume</td>
+                                    <td>${volume}</td>
+                                </tr>
+                                <tr>
+                                    <td>Timestamp</td>
+                                    <td>${timestamp}</td>
+                                </tr>
+                            </table>
+                        `;
+                        
+                        stockTable.innerHTML = tableHtml;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching stock data:', error);
+                        alert("Error fetching stock data. Please try again later.");
+                    });
+            }
+        </script>
+    </body>
+</html>

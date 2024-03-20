@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        body{
+            background:linear-gradient(to bottom, rgba(3, 51, 244, 0.151),rgba(3, 51, 244, 0.129)) center fixed,
+    url(main.jpg)center fixed;
+    background-size: cover;
+        }
+        #navlist {
+			background-color: rgba(12, 77, 99, 0);
+			position: absolute;
+			width: 100%;
+		}
+		/* styling navlist anchor element */
+		#navlist a {
+			float:left;
+			display: block;
+			color: #2c1818;
+			text-align: center;
+			padding: 12px;
+			text-decoration: none;
+			font-size: 18px;
+		}
+		.navlist-right{
+			float:right;
+		}
+		#navlist a:hover {
+			background-color:rgba(157, 222, 243, 0.327);
+			color: rgb(0, 0, 0);
+		}
+    header{
+    margin:0;
+    padding:0;
+    height:100px;
+    position:relative;
+        }
+        .container{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 365px;
+        backdrop-filter: blur(10px);
+        }
+      
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Login / Sign Up Form</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="./src/main.css">
+</head>
+<body>
+    <div id="navlist">
+            <a href="index.html">Home</a>
+            <a href="about_us.html">About Us</a>
+            <i class="fa-solid fa-user fa-2xl"></i><a href="login.html">Sign up/Sign in</a>
+            <!-- search bar right align -->
+            
+        </div>
+    
+    <div class="container">
+        
+        <form class="form" id="login">
+            <h1 style="color: black;" class="form__title">Login</h1>
+            <div class="form__message form__message--error"></div>
+            <div class="form__input-group">
+                <input type="text" class="form__input" autofocus placeholder="Username or email">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" autofocus placeholder="Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <button style="color: black;" class="form__button" type="submit">Continue</button>
+            <p class="form__text">
+                <a href="#" style="color: black;" class="form__link">Forgot your password?</a>
+            </p>
+            <p class="form__text">
+                <a class="form__link" href="./" style="color: black;" id="linkCreateAccount">Don't have an account? Create account</a>
+            </p>
+        </form>
+        <form class="form form--hidden" id="createAccount">
+            <h1 style="color: black;" class="form__title">Create Account</h1>
+            <div class="form__message form__message--error"></div>
+            <div class="form__input-group">
+                <input type="text" id="Name" class="form__input" autofocus placeholder="Name">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="number" id="P_Number" class="form__input" autofocus placeholder="P_Number">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="text" id="signupUsername" class="form__input" autofocus placeholder="Username">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="text" class="form__input" autofocus placeholder="Email Address">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" autofocus placeholder="Password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group">
+                <input type="password" class="form__input" autofocus placeholder="Confirm password">
+                <div class="form__input-error-message"></div>
+            </div>
+            <button style="color: black;" class="form__button" type="submit">Continue</button>
+            <p class="form__text">
+                <a href="home.html"><b><a style="color: black;" class="form__link" href="./" id="linkLogin">Already have an account? Sign in</a></b></a>
+            </p>
+        </form>
+    </div>
+    <script src="./src/main.js"></script>
+</body>

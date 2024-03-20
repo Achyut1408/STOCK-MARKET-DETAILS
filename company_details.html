@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #search-bar {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 25px;
+        }
+        #company-details {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 500px;
+            padding-right: 1500px;
+        }
+        #company-details th, #company-details td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: justify;
+            font-size: 25px;
+        }
+        #company-details th {
+            background-color: #f2f2f2;
+        }
+        #company-details{
+            padding-left: 1000px;
+        }
+    
+        #content{
+            display: flex;
+              align-items: center;
+              font-size: 36px;
+          }
+          #navlist {
+            background-color: #0b2edc00;
+            position: absolute;
+            width: 100%;
+            margin-top: -20px;
+        }
+        /* styling navlist anchor element */
+        #navlist a {
+            float:left;
+            display:block;
+            color: #1d0a97e0;
+            text-align: center;
+            padding: 12px;
+            text-decoration:none;
+            font-size: 30px;
+        }
+        .navlist-right{
+            float:right;
+        }
+        #navlist a:hover {
+            background-color: rgba(82, 71, 239, 0.262);
+            color: black;
+        }
+        
+          #search-container {
+              
+              display: flex;
+              align-items: center;
+              justify-content: flex-end; /* Align to the right */
+              flex-grow: 1; /* Allow it to grow and take remaining space */
+          }
+        
+          #education-browser {
+              margin-right: 10px;
+          }
+        
+          #option-button {
+              display: flex;
+              align-items: center;
+          }
+        
+          #option-button button {
+              padding: 5px 10px;
+              font-size: 30px;
+              cursor: pointer;
+              margin-right: 10px;
+              border-radius: 20px;
+              background-color: white;
+            border: 2px solid black;
+            color: black;
+          }
+        
+          #submit-button {
+              padding: 5px 10px;
+              font-size: 30px;
+              cursor: pointer;
+              border-radius: 20px;
+          }
+          #option-button button:hover {
+            background-color: blue;
+            color: white;
+          }
+          #search-bar {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 25px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6d61ea9d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 25px;
+        }
+
+        button:hover {
+            background-color: #252f6a;
+        }
+        h1{
+            font-size: 35px;
+        }
+        #company-input{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="navlist">
+            <a href="index.html">Home</a>
+            <a href="about_us.html">About Us</a>
+                <i class="fa-solid fa-user fa-2xl"></i><a href="login.html">Sign up/Sign in</a>
+            <!-- search bar right align -->
+            
+          </div>
+        <div class="content">
+            <form onsubmit="checkFormData()">
+                <div id="search-container">
+                    <div id="budget-buttons" >
+                        <button type="button" class="option-button" data-budget="company_details" onclick="getBudgetData(this); changeColor(this);">Company Details</button>
+                        <button type="button" class="option-button" data-budget="daily_data" onclick="getBudgetData(this); changeColor(this);">Daily_Data</button>
+                        <button type="button" class="option-button" data-budget="investor" onclick="getBudgetData(this); changeColor(this);">Investor Details</button>
+                        <button type="button" class="option-button" data-budget="symbol converter" onclick="getBudgetData(this); changeColor(this);">Symbol Converter</button>
+                    </div>
+                    <button type="submit" id="submit-button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </header>
+    <h1>Company Details</h1>
+
+    <div id="search-bar">
+        <label for="company-input">Enter company symbol:</label>
+        <input type="text" id="company-input" placeholder="e.g., Apple Inc. or AAPL">
+        <button onclick="searchCompany()">Search</button>
+    </div>
+
+    <table id="company-details">
+        <!-- Table data will be inserted here dynamically -->
+    </table>
+
+    <script>
+        const budgetButtons = document.querySelectorAll('.option-button');
+        var optionInput;
+
+// Add a click event listener to each button
+        budgetButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Deselect all buttons
+            budgetButtons.forEach(btn => {
+            btn.classList.remove('selected');
+            btn.style.backgroundColor = 'white';
+            btn.style.color = 'black';
+            });
+
+            // Select the clicked button
+            this.classList.add('selected');
+            this.style.backgroundColor = 'blue';
+            this.style.color = 'white';
+        });
+        });
+            function changeColor(button) {
+                button.style.backgroundColor = "blue";
+                button.style.color = "green";
+            }
+        function searchCompany() {
+            var symbol = document.getElementById("company-input").value;
+            var apiUrl = "https://www.alphavantage.co/query?function=OVERVIEW&symbol=" + symbol + "&apikey=2AAWPZYU83HUC7AN";
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var keysToRemove = ["ReturnOnAssetsTTM", "ReturnOnEquityTTM", "RevenueTTM", "GrossProfitTTM",
+                        "DilutedEPSTTM", "QuarterlyEarningsGrowthYOY", "QuarterlyRevenueGrowthYOY",
+                        "AnalystTargetPrice", "TrailingPE", "ForwardPE", "PriceToSalesRatioTTM",
+                        "PriceToBookRatio", "EVToRevenue", "EVToEBITDA"];
+
+                    var tableData = Object.entries(data)
+                        .filter(([key, value]) => !keysToRemove.includes(key))
+                        .map(([key, value]) => [key, value]);
+
+                    var tableHtml = "<tr><th>Key</th><th>Value</th></tr>";
+                    tableData.forEach(row => {
+                        tableHtml += "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td></tr>";
+                    });
+
+                    document.getElementById("company-details").innerHTML = tableHtml;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+        function getBudgetData(button) {
+            
+            optionInput = button.getAttribute('data-budget');
+            
+          }
+        function checkFormData()
+    {
+      const optionInput = document.getElementById('education-browser').value;
+     
+
+      // Get the input value for budget
+      
+      if (optionInput === "investor") {
+        // Redirect to a certain page (replace 'redirect_url' with the actual URL)
+        window.location.href = './investor.html';
+      } 
+      if (optionInput === "company_details") {
+        // Redirect to a certain page (replace 'redirect_url' with the actual URL)
+        window.location.href = './nm40.html';
+      } 
+      if (optionInput === "daily_data") {
+        // Redirect to a certain page (replace 'redirect_url' with the actual URL)
+        window.location.href = './nm40.html';
+      }
+      if (optionInput === "symbol converter") {
+        // Redirect to a certain page (replace 'redirect_url' with the actual URL)
+        window.location.href = './nm40.html';
+      }
+    }
+    </script>
+</body>
+</html>
